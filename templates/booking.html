@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<script>
+    // Check if a success message exists and is not empty
+    {% if messages %}
+      var successMessage = "{{ messages }}";
+      if (successMessage.trim() !== "") {
+        alert(successMessage);
+      }
+    {% endif %}
+  </script>
+
+{% for book in books %}
+        <!-- Page Header Start -->
+        <div class="container-fluid page-header mb-5 p-0" style="background-image: url({{book.slider_image.url}});">
+            <div class="container-fluid page-header-inner py-5">
+                <div class="container text-center pb-5">
+                    <h1 class="display-3 text-white mb-3 animated slideInDown">{{book.name}}</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center text-uppercase">
+                            <li class="breadcrumb-item"><a href="/">Home</a></li>
+                            <li class="breadcrumb-item"><a href="">Pages</a></li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">{{book.name}}</li>
+                        </ol>
+                    </nav>
+                    <a href="/room" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Our Rooms</a>
+                    <a href="/booking" class="btn btn-light py-md-3 px-md-5 animated slideInRight">Book A Room</a>
+                </div>
+            </div>
+        </div>
+        <!-- Page Header End -->
+
+        <!-- Booking Start -->
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                    <h6 class="section-title text-center text-primary text-uppercase">{{book.caption}}</h6>
+                    <h1 class="mb-5">{{book.title}}</span></h1>
+                </div>
+                <div class="row g-5">
+                    <div class="col-lg-6">
+                        <div class="row g-3">
+                            <div class="col-6 text-end">
+                                <img class="img-fluid rounded w-75 wow zoomIn" data-wow-delay="0.1s" src="{% static 'img/about-1.jpg' %}" style="margin-top: 25%;">
+                            </div>
+                            <div class="col-6 text-start">
+                                <img class="img-fluid rounded w-100 wow zoomIn" data-wow-delay="0.3s" src="{% static 'img/about-2.jpg' %}">
+                            </div>
+                            <div class="col-6 text-end">
+                                <img class="img-fluid rounded w-50 wow zoomIn" data-wow-delay="0.5s" src="{% static 'img/about-3.jpg' %}">
+                            </div>
+                            <div class="col-6 text-start">
+                                <img class="img-fluid rounded w-75 wow zoomIn" data-wow-delay="0.7s" src="{% static 'img/about-4.jpg' %}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="wow fadeInUp" data-wow-delay="0.2s">
+                            <form method="POST" action="">
+                                {% csrf_token %}
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" name="name" placeholder="Your Name">
+                                            <label >Your Name</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            <input type="email" class="form-control" name="email" placeholder="Your Email">
+                                            <label >Your Email</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating date"  id="date3"  data-target-input="nearest">
+                                            <input type="text" class="form-control datetimepicker-input" name="checkin" placeholder="Check In" data-target="#date3" data-toggle="datetimepicker" />
+                                            <label>Check In</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating date" id="date4"  data-target-input="nearest">
+                                            <input type="text" class="form-control datetimepicker-input" name="checkout" placeholder="Check Out" data-target="#date4" data-toggle="datetimepicker" />
+                                            <label >Check Out</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            
+                                            <input type="number" class="form-control" name="adult" placeholder="no of adults">
+
+                                            <label >No. of Adult</label>
+                                          </div>
+                                    </div>
+                                  
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                           
+                                            <input type="number" class="form-control" name="child" placeholder="number of childs">
+
+                                            <label>No. of Child</label>
+                                          </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            <select class="form-select" name="rooms">
+                                              <option value="">-</option>
+                                              <option  value="Junior Suite">Junior Suite</option>
+                                              <option  value="Executive Suite">Executive Suite</option>
+                                              <option  value="Deluxe Room">Deluxe Room</option>
+                                              <option  value="Super Deluxe">Super Deluxe</option>
+
+                                            </select>
+                                            <label >Select A Room</label>
+                                          </div>
+                                          {% comment %} <label for="rooms">Select A Room:</label>
+                                          <select id="rooms" name="rooms">
+                                              <option value="Junior Suite">Junior Suite</option>
+                                              <option value="Executive Suite">Executive Suite</option>
+                                              <option value="Super Deluxe">Super Deluxe</option>
+                                          </select><br> {% endcomment %}
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            
+                                            <input type="number" class="form-control" name="n_rooms" placeholder="no of rooms">
+
+                                            <label >Number of rooms</label>
+                                          </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-floating">
+                                            <textarea class="form-control" placeholder="Special Request" name="message" style="height: 100px"></textarea>
+                                            <label >Special Request</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <button class="btn btn-primary w-100 py-3" type="submit">Book Now</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Booking End -->
+{% endfor %}
+
+{% endblock content %}

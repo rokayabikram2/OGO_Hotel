@@ -1,0 +1,183 @@
+{% extends "bases.html" %}
+{% load static %}
+{% block content %}
+  <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+    <!-- Navbar -->
+    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl"
+         id="navbarBlur"
+         navbar-scroll="true">
+      <div class="container-fluid py-1 px-3">
+        <nav aria-label="breadcrumb">
+          <h6 class="font-weight-bolder mb-0">ROOM</h6>
+        </nav>
+      </div>
+    </nav>
+    <!-- End Navbar -->
+    <div class="container-fluid py-4">
+      <div class="row">
+        <div class="col-12">
+          <div class="card my-4">
+            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+              <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                <h6 class="text-white text-capitalize ps-3">UPDATE ROOM</h6>
+              </div>
+            </div>
+            <div class="container-fluid py-4">
+              <div class="card-body px-0 pb-2">
+                <div class="table-responsive p-0">
+                     
+                  <style>
+                    /* Optional: Add some general styling for the form */
+                    form {
+                      max-width: 600px;
+                      margin: 0 auto;
+                      padding: 20px;
+                      border: 1px solid #ccc;
+                      border-radius: 5px;
+                    }
+                  
+                    /* Style for each form section (container) */
+                    .form-container {
+                      margin-bottom: 20px;
+                      padding: 10px;
+                      background-color: #f9f9f9;
+                      border: 1px solid #ddd;
+                      border-radius: 5px;
+                    }
+                  
+                    /* Style for the form labels */
+                    .form-group label {
+                      display: block;
+                      margin-bottom: 5px;
+                      font-weight: bold;
+                    }
+                  
+                    /* Style for the form inputs and textarea */
+                    .form-group input[type="text"],
+                    .form-group textarea {
+                      width: 100%;
+                      padding: 10px;
+                      border: 1px solid #ccc;
+                      border-radius: 4px;
+                      box-sizing: border-box;
+                    }
+                  
+                    /* Style for the submit button */
+                    .form-group input[type="submit"] {
+                      padding: 10px 20px;
+                      border: none;
+                      border-radius: 4px;
+                      background-color: #007bff;
+                      color: #fff;
+                      cursor: pointer;
+                      margin:5px;
+                    }
+                  
+                    .form-group input[type="submit"]:hover {
+                      background-color: #0056b3;
+                    }
+                  
+                    /* Optional: Style the image displayed in the form */
+                    img {
+                      max-width: 20%;
+                      height: auto;
+                      margin-top: 10px;
+                    }
+                  </style>
+                  
+                <table class="table align-items-center mb-0">
+                  <form method="POST" action="" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    
+                    <div class="container">
+                      <div class="row">
+                        <!-- First Side -->
+                        <div class="col-md-6">
+                          <div class="form-section">
+                            <div class="form-group">
+                              <label class="col-12 p-2">Name</label>
+                              <div class="col-12">
+                                <input type="text" class="form-control" name="name" value="{{r_detail.name}}">
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label class="col-12 p-2">Image</label>
+                              <div class="col-12">
+                                <input type="file" class="form-control-file" name="image">
+                                {% if r_detail.image %}
+                                  <img src="{{ r_detail.image.url }}" class="img-thumbnail" >
+                                {% endif %}
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label class="col-12 p-2">No. of Bed</label>
+                              <div class="col-12">
+                                <input type="text" class="form-control" name="n_bed" value="{{r_detail.n_bed}}">
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label class="col-12 p-2">No. of Bath</label>
+                              <div class="col-12">
+                                <input type="text" class="form-control" name="n_bath" value="{{r_detail.n_bath}}">
+                              </div>
+                            </div>
+                            {% comment %} <div class="form-group">
+                              <label class="col-12 p-2">No. of </label>
+                              <div class="col-12">
+                                <input type="number" class="form-control" name="n_people" value="{{r_detail.n_people}}">
+                              </div>
+                            </div> {% endcomment %}
+                          </div>
+                        </div>
+                    
+                        <!-- Second Side -->
+                        <div class="col-md-6">
+                          <div class="form-section">
+                            <div class="form-group">
+                              <label class="col-12 p-2">No. of wifi</label>
+                              <div class="col-12">
+                                <input type="text" class="form-control" name="wifi" value="{{r_detail.wifi}}">
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label class="col-12 p-2">Room Price</label>
+                              <div class="col-12">
+                                <input type="text" class="form-control" name="price" value="{{r_detail.price}}">
+                              </div>
+                            </div> 
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-12 p-2">Description</label>
+                      <div class="col-12">
+                        <textarea name="description" class="form-control" style="height: 200px; resize:vertical;">{{r_detail.description}}</textarea>
+                      </div>
+                    </div>
+                    
+                    <!-- Submit Button -->
+                    <div class="form-group">
+                      <div class="col-12">
+                        <input type="submit" value="Submit" class="btn btn-primary">
+                      </div>
+                    </div>
+                    
+                  </form> 
+                </table>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  {% endblock content %}
+
+
+
+
+

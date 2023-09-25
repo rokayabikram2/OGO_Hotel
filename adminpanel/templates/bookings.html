@@ -1,0 +1,83 @@
+{% extends "bases.html" %}
+{% load static %}
+{% block content %}
+  <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+    <!-- Navbar -->
+    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl"
+         id="navbarBlur"
+         navbar-scroll="true">
+      <div class="container-fluid py-1 px-3">
+        <nav aria-label="breadcrumb">
+          <h6 class="font-weight-bolder mb-0">BOOKINGS</h6>
+        </nav>
+      </div>
+    </nav>
+    <!-- End Navbar -->
+    <div class="container-fluid py-4">
+      <div class="row">
+        <div class="col-12">
+          <div class="card my-4">
+            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+              <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                <h6 class="text-white text-capitalize ps-3">Detail</h6>
+              </div>
+            </div>
+            <div class="container-fluid py-4">
+              <div class="card-body px-0 pb-2">
+                <div class="table-responsive p-0">
+                  <table class="table align-items-center mb-0">
+                    <tr>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Room</th>
+                      <th>No. of rooms</th>
+                      <th>Adult</th>
+                      <th>Child</th>
+                      <th>checkIN</th>
+                      <th>checkOut</th>
+                      <th>Message</th>
+                      <th>Action</th>
+                    </tr>
+                    {% for cons in book %}
+                      <tr>
+                        <td>{{cons.name}}</td>
+                        <td>{{cons.email}}</td>
+                        <td>{{cons.rooms}}</td>
+                        <td>{{cons.n_rooms}}</td>
+                        <td>{{cons.n_adult}}</td>
+                        <td>{{cons.n_child}}</td>
+                        <td>{{cons.checkIn}}</td>
+                        <td>{{cons.checkOut}}</td>
+                        <td>{{cons.message}}</td>
+                       
+                        <td>
+                          <form method="POST" action="{% url 'delete' pk=cons.pk %}">
+                            {% csrf_token %}
+                            <button type="button" class="btn-danger btn-sm" onclick="myFunction(event)">&#128465;</button>
+                            <p class="confirmation-msg"></p>
+                          </form>
+                          {% comment %} <form method="POST" action="{% url 'delete' pk=cons.pk %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn-danger btn-sm">&#128465;</button>
+                          </form> {% endcomment %}
+                        </td>
+                      </tr>
+                    {% endfor %}
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      function myFunction(event) {
+          var confirmation = confirm("Are you sure you want to delete?");
+          if (confirmation === true) {
+              // Continue with form submission (delete action)
+              event.target.parentNode.submit(); // Manually submit the form
+          } 
+      }
+    </script>
+  {% endblock content %}
